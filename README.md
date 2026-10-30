@@ -1,2 +1,463 @@
-# hl-new-vegas-3
-сайт для шутки моего друга
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HALF-LIFE: NEW VEGAS 3 - Официальный сайт</title>
+    <style>
+        /* Стилизация под постапокалипсис и ретро-казино */
+        :root {
+            --hl-orange: #f57e20;
+            --vegas-gold: #d4af37;
+            --dark-bg: #121212;
+            --terminal-green: #4af626;
+            --blood-red: #8b0000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--dark-bg);
+            color: #ccc;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+        }
+
+        /* Верхняя панель навигации */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--hl-orange);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--hl-orange);
+            text-shadow: 0 0 10px rgba(245, 126, 32, 0.5);
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--vegas-gold);
+            text-shadow: 0 0 10px var(--vegas-gold);
+        }
+
+        /* Главный экран (Hero Section) с ТВОЕЙ картинкой */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* ВАЖНО: Сохрани картинку как cover.jpg в папку с сайтом */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.95)), url('cover.jpg') center/cover no-repeat; 
+            border-bottom: 4px solid var(--hl-orange);
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            margin: 0;
+            color: var(--hl-orange);
+            text-shadow: 4px 4px 0 #000, 0 0 30px var(--hl-orange);
+            letter-spacing: 6px;
+            font-family: Impact, sans-serif;
+        }
+
+        .hero h2 {
+            font-size: 50px;
+            margin-top: 0;
+            color: var(--vegas-gold);
+            text-shadow: 3px 3px 0 #000, 0 0 20px var(--vegas-gold);
+            letter-spacing: 4px;
+            font-family: Georgia, serif;
+            font-style: italic;
+        }
+
+        .release-badge {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid var(--hl-orange);
+            padding: 15px 30px;
+            font-size: 24px;
+            color: var(--terminal-green);
+            box-shadow: 0 0 20px rgba(74, 246, 38, 0.4);
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Общие стили для секций */
+        .info-section {
+            padding: 70px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: var(--vegas-gold);
+            border-bottom: 2px solid var(--vegas-gold);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            font-size: 32px;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Сетка карточек */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(25, 25, 25, 0.95);
+            border: 1px solid #333;
+            border-top: 4px solid var(--hl-orange);
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(245, 126, 32, 0.2);
+        }
+
+        .card h3 {
+            color: var(--hl-orange);
+            margin-top: 0;
+            font-size: 22px;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 10px;
+        }
+
+        /* Секция Галереи (Скриншоты) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            background: #000;
+            height: 200px;
+            border: 2px solid #333;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px;
+            transition: border-color 0.3s;
+            /* Стилизация под скриншоты из игры */
+            background-image: linear-gradient(45deg, #1a1a1a 25%, #222 25%, #222 50%, #1a1a1a 50%, #1a1a1a 75%, #222 75%, #222 100%);
+            background-size: 20px 20px;
+            cursor: crosshair;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--hl-orange);
+        }
+
+        .gallery-item::before {
+            content: "NO SIGNAL // SECURE CONNECTION REQUIRED";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #555;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .gallery-caption {
+            background: rgba(0,0,0,0.8);
+            color: var(--terminal-green);
+            padding: 5px 10px;
+            font-size: 12px;
+            z-index: 2;
+            border-left: 3px solid var(--terminal-green);
+        }
+
+        /* Стиль терминала */
+        .terminal-box {
+            background-color: #050505;
+            border: 2px solid #333;
+            padding: 25px;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--terminal-green);
+            margin-top: 20px;
+            box-shadow: inset 0 0 30px rgba(74, 246, 38, 0.1);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .terminal-box span.highlight {
+            color: var(--vegas-gold);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 15px;
+            background-color: var(--terminal-green);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Секция предзаказа */
+        .editions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .edition {
+            background: #1a1a1a;
+            border: 2px solid #444;
+            padding: 30px;
+            text-align: center;
+            width: 250px;
+            position: relative;
+        }
+
+        .edition.standard { border-color: #666; }
+        .edition.deluxe { border-color: var(--hl-orange); transform: scale(1.05); box-shadow: 0 0 20px rgba(245, 126, 32, 0.2); }
+        .edition.ultimate { border-color: var(--vegas-gold); }
+
+        .edition h4 { color: #fff; font-size: 20px; margin-top: 0; }
+        .edition .price { color: var(--terminal-green); font-size: 24px; font-weight: bold; margin: 15px 0; }
+        .edition ul { list-style: none; padding: 0; text-align: left; font-size: 14px; color: #aaa; }
+        .edition ul li { margin-bottom: 8px; border-bottom: 1px dotted #333; padding-bottom: 4px; }
+        .preorder-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--hl-orange);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+        .preorder-btn:hover { background: #ff9e4a; }
+
+        /* Подвал */
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 40px;
+            border-top: 3px solid var(--hl-orange);
+            font-size: 12px;
+            color: #666;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-box {
+            border: 1px solid #333;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            background: #111;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 45px; }
+            .hero h2 { font-size: 30px; }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav a { margin: 0 10px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VALVE + BETHESDA</div>
+        <nav>
+            <a href="#about">Сюжет</a>
+            <a href="#features">Механики</a>
+            <a href="#gallery">Медиа</a>
+            <a href="#terminal">Данные</a>
+            <a href="#preorder">Предзаказ</a>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <div class="hero">
+        <h1>HALF-LIFE</h1>
+        <h2>NEW VEGAS 3</h2>
+        <div class="release-badge">РЕЛИЗ: 12 ОКТЯБРЯ 2029 ГОДА</div>
+    </div>
+
+    <!-- Сюжет -->
+    <div class="info-section" id="about">
+        <h2 class="section-title">Добро пожаловать в Пустошь</h2>
+        <p style="font-size: 18px; line-height: 1.8; text-align: justify;">
+            После событий <strong>Каскадного Резонанса</strong>, Мохаве превратилась в зону аномалий. Лас-Вегас разделен на сектора, контролируемые фракциями: остатками <span style="color: var(--hl-orange)">ГОР (Гражданская Оборона)</span>, использующими технологии Альянса, и <span style="color: var(--vegas-gold)">Синдикатом "РобКо"</span>, захватившим казино. Вы — <strong>Гордон Фримен</strong>, разбуженный в бункере "Лаки 38". Ваша новая монтировка оснащена гравитационным модулем, а костюм HEV интегрирован с системой VATS. Найдите "Платиновый чип", чтобы изменить судьбу пустоши навсегда.
+        </p>
+    </div>
+
+    <!-- Особенности и механики -->
+    <div class="info-section" id="features">
+        <h2 class="section-title">Особенности игры</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>Грави-Монтировка MK II</h3>
+                <p>Классическое оружие ближнего боя теперь может притягивать предметы и отбивать снаряды. Идеально для борьбы с хедкрабами и Плоскоголовыми.</p>
+            </div>
+            <div class="card">
+                <h3>Система S.P.E.C.I.A.L. + HEV</h3>
+                <p>Прокачивайте выносливость, чтобы дольше находиться в замедлении времени (VATS). Улучшайте броню костюма с помощью ядерных материалов.</p>
+            </div>
+            <div class="card">
+                <h3>Открытый мир Мохаве</h3>
+                <p>Исследуйте руины Нью-Вегаса, заброшенные лаборатории Черной Мезы и радиоактивные кратеры. Найдите Платиновый чип и решите судьбу региона.</p>
+            </div>
+            <div class="card">
+                <h3>Мультиплеер (Кооператив)</h3>
+                <p>Впервые в серии: проходите сюжет вместе с другом. Один играет за Фримена, второй — за наемника-гуля с имплантами.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Галерея скриншотов (Показ игры) -->
+    <div class="info-section" id="gallery">
+        <h2 class="section-title">Медиа // Скриншоты</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-caption">Сектор "Стрип": Битва с Секьюритронами</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-caption">Использование Грави-пушки в кратере</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-caption">Диалог с лидером фракции "Легион Альянса"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-caption">Интерфейс крафта в бункере "Лаки 38"</div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; margin-top: 15px; font-size: 12px;">*Изображения скрыты до официального анонса. Показаны фрагменты интерфейса.</p>
+    </div>
+
+    <!-- Терминал с данными -->
+    <div class="info-section" id="terminal">
+        <h2 class="section-title">Данные из Терминала</h2>
+        <div class="terminal-box">
+            > ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ...<br>
+            > ПОДКЛЮЧЕНИЕ К СЕТИ ROBCO...<br>
+            > <span class="highlight">СТАТУС РАЗРАБОТКИ:</span> 92% (Финальная полировка)<br>
+            > <span class="highlight">ДАТА ВЫХОДА:</span> 12.10.2029<br>
+            > <span class="highlight">ПЛАТФОРМЫ:</span> PC (Steam/EGS), PS5, Xbox Series X|S, Valve Index 2 (VR)<br>
+            > <span class="highlight">ДВИЖОК:</span> Source 2 (модифицированный)<br><br>
+            > <span class="highlight">СИСТЕМНЫЕ ТРЕБОВАНИЯ (МИНИМАЛЬНЫЕ):</span><br>
+            > ОС: Windows 10/11 (64-bit)<br>
+            > Процессор: Intel Core i5-8400 / AMD Ryzen 5 2600<br>
+            > ОЗУ: 16 GB<br>
+            > Видеокарта: NVIDIA GTX 1060 6GB / AMD RX 580 8GB<br>
+            > Место на диске: 120 GB SSD<br><br>
+            > <span class="highlight">> ОЖИДАНИЕ ВВОДА КОМАНДЫ...</span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- Блок предзаказа -->
+    <div class="info-section" id="preorder">
+        <h2 class="section-title">Выберите издание</h2>
+        <div class="editions">
+            <div class="edition standard">
+                <h4>Стандартное</h4>
+                <div class="price">2999 ₽</div>
+                <ul>
+                    <li>Базовая игра</li>
+                    <li>Цифровой саундтрек</li>
+                    <li>Скин "Классический HEV"</li>
+                </ul>
+                <a href="#" class="preorder-btn">Купить</a>
+            </div>
+            <div class="edition deluxe">
+                <h4>Deluxe Edition</h4>
+                <div class="price">4499 ₽</div>
+                <ul>
+                    <li>Все из Стандартного</li>
+                    <li>Доступ за 3 дня до релиза</li>
+                    <li>Скин "Платиновая монтировка"</li>
+                    <li>Артбук в цифровом виде</li>
+                </ul>
+                <a href="#" class="preorder-btn">Купить</a>
+            </div>
+            <div class="edition ultimate">
+                <h4>Collector's Edition</h4>
+                <div class="price">12999 ₽</div>
+                <ul>
+                    <li>Все из Deluxe</li>
+                    <li>Физическая статуэтка Хедкраба</li>
+                    <li>Реплика Платинового чипа</li>
+                    <li>Карта Пустоши Мохаве</li>
+                    <li>Steelbook</li>
+                </ul>
+                <a href="#" class="preorder-btn" style="background: var(--vegas-gold);">Купить</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подвал с логотипами -->
+    <footer>
+        <div class="logos">
+            <div class="logo-box">VALVE</div>
+            <div class="logo-box">BETHESDA</div>
+            <div class="logo-box">OBSIDIAN</div>
+        </div>
+        <p>© 2029. Все права защищены. Это фанатский концепт-сайт. Игра не является реальным продуктом.</p>
+        <p>Сайт создан в развлекательных целях. Связь с реальными компаниями случайна.</p>
+    </footer>
+
+    <!-- Скрипт для плавной прокрутки -->
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
